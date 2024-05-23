@@ -11,13 +11,8 @@ SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 collum_names = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ']
 
 SPREADSHEET_ID = "1i_JeHpE22mBIFqDfKQ-IqE8qBNxysKhBOde77HjC7oY"
-SAMPLE_RANGE_NAME = "Diario!A1:A2"
-
 
 def main():
-  """Shows basic usage of the Sheets API.
-  Prints values from a sample spreadsheet.
-  """
   creds = None
 
   if os.path.exists("token.json"):
@@ -39,11 +34,7 @@ def main():
     service = build("sheets", "v4", credentials=creds)
 
     sheet = service.spreadsheets()
-    # result = (
-    #     sheet.values()
-    #     .get(spreadsheetId=SAMPLE_SPREADSHEET_ID, range=SAMPLE_RANGE_NAME)
-    #     .execute()
-    # )
+
     with open("valores_dolares.json", "r") as file:
         valores_dolares = json.load(file)
     with open("dump_nome_dolares.json", "r") as file:

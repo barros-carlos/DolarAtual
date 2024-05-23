@@ -4,11 +4,9 @@ from datetime import date
 import os
 import json
 import time
-import random
 
 def get_webDriver():
     options = webdriver.ChromeOptions()
-    options.add_experimental_option("detach", True)
     options.add_argument('headless')
 
     return webdriver.Chrome(options=options)
@@ -34,19 +32,8 @@ def getDolarValues():
         driver.get("https://www.google.com/search?q=" + dolar + "+hoje+cotação")
         time.sleep(1)
         valor = driver.find_element(By.XPATH, '//*[@id="knowledge-currency__updatable-data-column"]/div[1]/div[2]/span[1]')
-        modificador = random.randint(-5, 5)
         val = float(valor.text.replace(",", "."))
-        if val>=1:
-            val += modificador/100
-        elif val<1 and val>=0.1:
-            val += modificador/1000
-        elif val<0.1 and val>=0.01:
-            val += modificador/10000
-        if dolar == "D\u00f3lar Liberiano":
-            print(f'{val:.4f}')
-            print(f'{round(val, 4):.4f}'.replace(".", ","))
         valores[data].append({dolar: f'{round(val, 4):.4f}'.replace(".", ",")})
-        # valores[data].append({dolar: valor.text})
     driver.close()
     driver.quit()
     if os.path.exists("valores_dolares.json"):
